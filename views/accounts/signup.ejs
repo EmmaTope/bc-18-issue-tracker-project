@@ -1,0 +1,47 @@
+<% layout('layoutAuth') -%>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+
+            <div class="col-sm-10 col-sm-offset-1 mt-60">
+                <h1 class="text-center custom-care-font"><span class="custom-zone-font">ISSUE TRACKER</span></h1>
+                <h5 class="text-center">Have an account already? <a href="/users/login" class="text-info">Login</a></h5>
+
+            </div>
+
+            <div class="col-sm-10 col-sm-offset-1">
+
+                <div class="panel panel-default m-0 p-0 bg-white form">
+
+                    <form method="post">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label for="lastName">Last Name: </label>
+                                <input type="text" class="form-control" name="lastName">
+                            </div>
+                            <div class="form-group">
+                                <label for="firstName">First Name: </label>
+                                <input type="text" class="form-control" name="firstName">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email: </label>
+                                <input type="email" class="form-control" name="email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password: </label>
+                                <input type="password" class="form-control" name="password">
+                            </div>
+                        </div>
+                        <div class="panel-footer m-0">
+                            <div class="form-group mt-10">
+                                <button type="submit" class="btn btn-info simplebox">Sign in</button>
+                            </div>
+                        </div>
+                        <!--<button type="submit" class="btn btn-success">Submit</button>-->
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

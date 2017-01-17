@@ -1,0 +1,40 @@
+{
+  "name": "bc-18-issue-tracker-project",
+  "version": "1.0.0",
+  "description": "Issue Tracker Project",
+  "main": "app.js",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmmaTope/bc-18-issue-tracker-project.git"
+  },
+  "keywords": [
+    "Andela",
+    "Issue Tracker",
+    "Firebase",
+    "Express"
+  ],
+  "author": "Shaibu Emmanuel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EmmaTope/bc-18-issue-tracker-project/issues"
+  },
+  "homepage": "https://github.com/EmmaTope/bc-18-issue-tracker-project#readme",
+  "dependencies": {
+    "body-parser": "~1.15.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "ejs": "~2.5.2",
+    "ejs-mate": "^2.3.0",
+    "express": "~4.14.0",
+    "express-flash": "0.0.2",
+    "express-session": "^1.14.2",
+    "firebase": "^3.6.5",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0",
+    "validatorjs": "^3.11.0"
+  }
+}

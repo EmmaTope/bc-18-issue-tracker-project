@@ -26,7 +26,7 @@
                             <td><%= dept.admin %></td>
                             <td>
                                 <span class="edit">
-                                    <a class="assign_admin" rel="<%= dept.key %>" data-toggle="modal" href="#" data-target="#assignAdminModal">
+                                    <a class="assign_admin" href="/assign-department-admin/<%= dept.key %>/<%= dept.name %>" rel="<%= dept.key %>">
                                         <% if (dept.admin == "NO ADMIN") {%>
                                         Assign Admin
                                         <% } else {%>
@@ -57,5 +57,5 @@
 <% block('body').append("<script src='https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js'></script>") %>
 <% block('body').append("<script src='https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js'></script>") %>
 <% block('body').append("<script src='/js/users.js'></script>") %>
-<% block('body').append("<script>jQuery(document).ready(function() {setTabActive('[href=\"/departments\"]');}) </script>") %>
+<% block('body').append("<script>jQuery(document).ready(function() {$('#depts_table').DataTable();setTabActive('[href=\"/departments\"]');}) </script>") %>
 

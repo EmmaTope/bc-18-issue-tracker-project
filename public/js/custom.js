@@ -11,3 +11,11 @@ function setTabActive(link){
     $(link).parent().addClass('active');
 
 }
+
+// function setTabActive2(link){
+//     $('.link').each(function(){
+//         $(this).removeClass('active');
+//     });
+//     // $('.'+link).parent().addClass('active');
+//
+// }

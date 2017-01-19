@@ -24,7 +24,8 @@ var http = require('http');
 var secret = require('./config/secret');
 
 var authRoutes = require('./routes/auth');
-var indexRoutes = require('./routes/index');
+var adminRoutes = require('./routes/admin');
+var issueRoutes = require('./routes/issues');
 
 var app = express();
 
@@ -54,8 +55,9 @@ app.use(session({
 }));
 app.use(flash());
 
-app.use(indexRoutes);
+app.use(adminRoutes);
 app.use(authRoutes);
+// app.use(issueRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

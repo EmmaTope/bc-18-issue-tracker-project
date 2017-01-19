@@ -1,0 +1,50 @@
+<% layout('layout') -%>
+<% block('style').append('<link type="text/css" href="#">') %>
+<div class="container">
+    <div class="row">
+        <% include ../partials/header %>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading panel-head">Departments</div>
+            <div class="panel-body">
+                <% include ../partials/flash_success %>
+
+                <% if (users.length > 0) {%>
+                <div class="col-sm-8" style="padding-bottom: 50px">
+                    <form method="post" role="form"  action="/assign-dept-admin">
+                        <div class="block-form">
+                            <h4> Choose admin for <%= dept %> department from members</h4>
+                            <input type="hidden" id="dept_id" name="dept_id" value="<%= id %>"/>
+                            <input type="hidden" id="dept_name" name="dept_name" value="<%= dept %>"/>
+
+                                <select name="user" id="user" class="form-control text-center">
+                                    <option value="">--Choose Admin--</option>
+                                    <% users.forEach(function(user) { %>
+                                        <% if (user.admin == id) {%>
+                                                <option value="<%= user.key+"--"+user.fullName%>" selected><%= user.fullName %></option>
+                                        <% } else{%>
+                                                <option value="<%= user.key+"--"+user.fullName%>"><%= user.fullName %></option>
+                                        <% } %>
+
+                                    <% }); %>
+                                </select>
+
+                        </div>
+                        <br/>
+                        <button class="btn btn-primary" type="submit">Save</button>
+                    </form>
+                </div>
+                <% } else {%>
+                    <h4> No ser in department. To assign a department admin He/She must be in the department</h4>
+                <% } %>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<% block('body').append("<script src='/js/users.js'></script>") %>
+<% block('body').append("<script>jQuery(document).ready(function() {setTabActive('[href=\"/departments\"]');}) </script>") %>
+<% //block('body').append("<script>jQuery(document).ready(function() {setTabActive2('link-dept');}) </script>") %>
+
+

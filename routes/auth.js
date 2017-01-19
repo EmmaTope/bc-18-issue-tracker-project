@@ -52,7 +52,7 @@ router.post('/register',ensureNewUser, function (req, res,next) {
             firebase.auth().signInWithEmailAndPassword(email, password)
                 .then(function () {
                     req.session.user = saveUser;
-                    res.redirect('/');
+                    res.redirect('/issue');
                 })
                 .catch(function (error) {
                     // console.log(error);
@@ -84,7 +84,7 @@ router.post('/login',ensureNewUser, function (req, res,next) {
                     res.redirect('/users');
                 }
                 else {
-                    res.redirect('/');
+                    res.redirect('/issue');
                 }
             }, function (error) {
                 console.log(error);

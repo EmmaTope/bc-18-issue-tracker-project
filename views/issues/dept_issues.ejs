@@ -1,0 +1,66 @@
+<% layout('layout') -%>
+
+<% block('style').append('<link type="text/css" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">') %>
+<div class="container">
+    <div class="row">
+        <% include ../partials/header %>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading panel-head">Issues for department</div>
+            <div class="panel-body">
+                <!-- Table -->
+
+                <% if (issues.length > 0) {%>
+                <table class="table table-striped table-bordered" id="issues_table" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th colspan="5"></th>
+                        <th></th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% issues.forEach(function(issue) { %>
+                    <tr class="tr-link">
+                        <a href="#">
+                            <td colspan="5">
+                                <p class="issue-title"><b><%= issue.issueTitle%></b></p>
+                                <p class="issue-details">
+                                    <span>opened <%= issue.openedOn %></span>&nbsp;&nbsp;
+                                    <span>by <%= issue.createdByName %></span>&nbsp;&nbsp;
+                                    <span>assigned to <%= issue.issueDeptName %> department</span>&nbsp;&nbsp;
+                                </p>
+                            </td>
+                            <td>
+                                <span class="edit">
+                                    <a class="assign_admin" href="/assign-issue/<%= issue.key %>" rel="<%= issue.key %>">
+                                        Assign User
+                                    </a>
+                                </span>
+                            </td>
+                        </a>
+
+                    </tr>
+                    <% }); %>
+                    </tbody>
+                </table>
+                <% } else {%>
+                <table class="table" width="100%" >
+                    <tr>
+                        <td>
+                            <div class="panel-head">No issue yet for department</div>
+                        </td>
+                    </tr>
+                </table>
+                <% } %>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<% block('body').append("<script src='https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js'></script>") %>
+<% block('body').append("<script src='https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js'></script>") %>
+<% block('body').append("<script src='/js/users.js'></script>") %>
+<% block('body').append("<script>jQuery(document).ready(function() {$('#issues_table').DataTable();setTabActive('[href=\"/issues\"]');}) </script>") %>
+

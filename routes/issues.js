@@ -33,12 +33,44 @@ router.get('/',isAuthenticated, function (req, res,next) {
 
 });
 
+//issues in a department
+router.get('/department',isAuthenticated, function (req, res,next) {
+    var currentUser = req.session.user;
+    if(currentUser.admin == ""){
+        return redirect('/denied');
+    }
+
+    var database = firebase.database();
+    var viewIssues = database.ref("/issues");
+    var deptIssues = [];
+    viewIssues.on('value',function(snapshot) {
+
+            snapshot.forEach(function(childSnapshot) {
+                var childKey = childSnapshot.key;
+                var childData = childSnapshot.val();
+                if(childData.issueDeptId == currentUser.department){
+                    childData["key"] = childKey;
+                    deptIssues.push(childData);
+                }
+
+            });
+            res.render('issues/dept_issues', {
+                issues: deptIssues,
+                currentUser: currentUser
+            });
+        },
+        function (error) {
+            console.log(error);
+        });
+
+});
+
 router.get('/create',isAuthenticated, function (req, res) {
     var currentUser = req.session.user;
     console.log(currentUser.firstName);
     res.render('issues/create',{
+        errors: req.flash('errors'),
         success: req.flash('success'),
-        messages: req.flash('messages'),
         currentUser:currentUser
     });
 });
@@ -77,15 +109,18 @@ router.post('/',isAuthenticated, function (req, res,next) {
             openedOn: moment().format('YYYY-MM-DD HH:mm:ss'),
             closedOn: ""
         });
-        req.flash('success', "Created Successfully");
+        if(result){
+            req.flash('success', "Created Successfully");
+            return res.redirect('/issue/create');
+        }
+        req.flash('errors', "Failed to create issue");
         return res.redirect('/issue/create');
     }
     else{
         var errors = helper.validationErrorsToArray(validator.errors.all());
-        console.log(errors[0]);
-        res.send("bad");
         // req.flash('messages', errors);
-        // return res.redirect('/issue/create');
+        req.flash('errors', "Error with inputs");
+        return res.redirect('/issue/create');
     }
 
 });

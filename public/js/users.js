@@ -6,7 +6,7 @@ $(document).ready(function() {
         $name =  $("#user-name-"+$id).text();
         $('#user_id').val($id);
         $('#f-user-name').text($name);
-        $('#assignDeptForm').modal('show');
+        $('#assignDeptModal').modal('show');
     });
 
     // Assign User Dept via modal
@@ -35,6 +35,36 @@ $(document).ready(function() {
                 // alert(textStatus + ' ' + xhr);
                 // console.log(error)
                 window.location.replace("/users");
+            }
+        });
+    });
+
+    $(document.body).on('click', '.change_status', function(e){
+        e.preventDefault();
+        $id = $(this).attr('rel');
+        $title =  $("#title-"+$id).text();
+        $('#issue_id').val($id);
+        $('#f-issue-title').text($title);
+        $('#changeStatusModal').modal('show');
+    });
+
+    // Assign User Dept via modal
+    $(document.body).on('submit', '#changeStatusForm', function(e){
+        e.preventDefault();
+        var data = $('#changeStatusForm').serialize();
+        $('#changeStatusFormButton').prop("disabled", true);
+        var id2 = $('#issue_id').val();
+        $.ajax({
+            type: 'POST',
+            data: data,
+            url: '/issue/change-status',
+            success: function(data,textStatus){
+                window.location.replace("/issue/department");
+            },
+            error: function(xhr,textStatus,error){
+                // alert(textStatus + ' ' + xhr);
+                // console.log(error)
+                window.location.replace("/issue/department");
             }
         });
     });

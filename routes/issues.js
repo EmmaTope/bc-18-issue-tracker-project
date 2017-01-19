@@ -54,7 +54,7 @@ router.get('/department',isAuthenticated, function (req, res,next) {
                 }
 
             });
-            res.render('issues/dept_issues', {
+            res.render('issues/dept-issues', {
                 issues: deptIssues,
                 currentUser: currentUser
             });
@@ -121,6 +121,98 @@ router.post('/',isAuthenticated, function (req, res,next) {
         // req.flash('messages', errors);
         req.flash('errors', "Error with inputs");
         return res.redirect('/issue/create');
+    }
+
+});
+
+router.get('/assign-issue/:id/:dept', isAuthenticated,function (req, res,next) {
+    var currentUser = req.session.user;
+    if(currentUser.admin != req.params.dept){
+        return redirect('/denied');
+    }
+
+    var issueId = req.params.id;
+    var deptId = req.params.dept;
+    var database = firebase.database();
+    var allUsers = database.ref("/users");
+    var deptUsers = [];
+    allUsers.on('value',function(snapshot) {
+
+            snapshot.forEach(function(childSnapshot) {
+                var childKey = childSnapshot.key;
+                var childData = childSnapshot.val();
+                // console.log(childKey);
+                if(childData.department == deptId){
+                    childData["key"] = childKey;
+                    childData["fullName"] = childData.lastName + " " + childData.firstName;
+                    deptUsers.push(childData);
+                }
+
+            });
+            res.render('issues/assign-issue', {
+                id: issueId,
+                users: deptUsers,
+                currentUser:currentUser,
+                success: req.flash('success')
+            });
+        },
+        function (error) {
+            console.log(error);
+        });
+
+});
+
+router.post('/assign-issue', function (req, res) {
+    var user = req.body.user;
+    var issueId = req.body.issue_id;
+    var url = '/issue/department/';
+    var arr = user.split("--");
+    var userName = arr[1];
+    var userId = arr[0];
+
+    var database = firebase.database();
+    var issueDb = database.ref("/issues/"+ issueId);
+    var result = issueDb.update({
+        assignedUserId: userId,
+        assignedUserName: userName,
+        issueStatus: 'in progress'
+    });
+
+    res.redirect(url);
+
+});
+
+router.post('/change-status', function (req, res) {
+    var id = req.body.issue_id;
+    var status = req.body.status;
+
+    if(status == "2"){
+        statusName = "in progress";
+    }
+    else if(status == "3"){
+        statusName = "closed";
+    }
+    else{
+        statusName = "open";
+    }
+
+    var database = firebase.database();
+    var issue = database.ref("/issues/"+ id);
+    var result = issue.update({
+        issueStatus: statusName
+    });
+
+    if(result){
+        res.json({
+            result:true,
+            name: statusName
+        });
+    }
+    else{
+        res.json({
+            result:false,
+            name: "null"
+        });
     }
 
 });

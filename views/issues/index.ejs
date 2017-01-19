@@ -24,6 +24,13 @@
                         <a href="#">
                             <td>
                                 <p class="issue-title"><b><%= issue.issueTitle%></b></p>
+                                <% if (issue.issueStatus == 'open') {%>
+                                <span class="label label-success">Open</span>
+                                <% } else if(issue.issueStatus == 'in progress'){%>
+                                <span class="label label-info">In Progress</span>
+                                <% } else {%>
+                                <span class="label label-default">Closed</span>
+                                <% }%>
                                 <p class="issue-details">
                                     <span>opened <%= issue.openedOn %></span>&nbsp;&nbsp;
                                     <span>by <%= issue.createdByName %></span>&nbsp;&nbsp;

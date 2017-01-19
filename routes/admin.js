@@ -156,8 +156,8 @@ router.post('/assign-dept-admin', function (req, res) {
     var userId = arr[0];
 
     var database = firebase.database();
-    var user = database.ref("/users/"+ userId);
-    var result = user.update({
+    var userDb = database.ref("/users/"+ userId);
+    var result = userDb.update({
         admin: deptId,
         user_type: "dept_admin"
     });

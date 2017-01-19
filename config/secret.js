@@ -1,6 +1,7 @@
 module.exports = {
   port: 3000,
-  secretKey: "Shaibu@$@!#@"
+  secretKey: "Shaibu@$@!#@",
+  url: "mongodb://mytoddlr:mytoddlr@ds143707.mlab.com:43707/mytoddlr"
 };
 
 // "rules": {

@@ -1,27 +1,31 @@
 var express = require('express');
 var router = express.Router();
 var firebase = require("firebase");
+var isAuthenticated = require('../middleware/isAuthenticated');
 var ensureNewUser = require('../middleware/ensureNewUser');
 var moment = require('moment');
 
-router.get('/', function (req, res) {
-    res.render('accounts/welcome');
+router.get('/', isAuthenticated,function (req, res,next) {
+    var currentUser = req.session.user;
+    res.render('accounts/welcome', {
+        currentUser: currentUser
+    });
 
 });
 
-router.get('/login',ensureNewUser,function (req, res) {
+router.get('/login',ensureNewUser,function (req, res,next) {
     res.render('accounts/login', {
         errors: req.flash('errors')
     });
 });
 
-router.get('/register',ensureNewUser, function (req, res) {
+router.get('/register',ensureNewUser, function (req, res,next) {
     res.render('accounts/signup', {
         errors: req.flash('errors')
     });
 });
 
-router.post('/register',ensureNewUser, function (req, res) {
+router.post('/register',ensureNewUser, function (req, res,next) {
     var email = req.body.email;
     var password = req.body.password;
     var firstName = req.body.firstName;
@@ -31,22 +35,23 @@ router.post('/register',ensureNewUser, function (req, res) {
         .then(function (user) {
             // 'userid': user.uid,
             var currentDate = moment().format('YYYY-MM-DD HH:mm:ss');
-            var ref = firebase.database().ref('/users/'+ user.uid);
-            ref.set({
+            var saveUser = {
                 'firstName': firstName,
                 'lastName': lastName,
                 'email': email,
-                'user_type': "memeber",
+                'user_type': "member",
                 'department': "null",
                 'created_at': currentDate,
                 'updated_at': currentDate,
                 'departmentName': "",
                 'admin':"",
                 'key': user.uid
-            });
+            };
+            var ref = firebase.database().ref('/users/'+ user.uid);
+            ref.set(saveUser);
             firebase.auth().signInWithEmailAndPassword(email, password)
                 .then(function () {
-                    // req.session.user = user.uid;
+                    req.session.user = saveUser;
                     res.redirect('/');
                 })
                 .catch(function (error) {
@@ -65,7 +70,7 @@ router.post('/register',ensureNewUser, function (req, res) {
         });
 });
 
-router.post('/login',ensureNewUser, function (req, res) {
+router.post('/login',ensureNewUser, function (req, res,next) {
     var email = req.body.email;
     var password = req.body.password;
     firebase.auth().signInWithEmailAndPassword(email, password)
@@ -74,6 +79,7 @@ router.post('/login',ensureNewUser, function (req, res) {
             var database = firebase.database();
             database.ref("users/"+ checkLogin.uid).on('value', function (snapshot) {
                 var user = snapshot.val();
+                req.session.user = user;
                 if (user.user_type == "admin") {
                     res.redirect('/users');
                 }
@@ -93,7 +99,7 @@ router.post('/login',ensureNewUser, function (req, res) {
 
 });
 
-router.get('/logout', function (req, res, next) {
+router.get('/logout', function (req, res) {
     firebase.auth().signOut()
         .then(function () {
         res.redirect("/login");

@@ -10,6 +10,13 @@ body {
 #navbar-gap {
   margin-top: 4%;
 }
+.tr-link:hover {
+  cursor: pointer;
+}
+.issue-title{
+  font-size: 16px;
+  color: #000;
+}
 .panel-head{
   font-size: 16px;
   font-family: Tahoma, Geneva, sans-serif;

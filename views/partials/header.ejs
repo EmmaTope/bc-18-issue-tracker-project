@@ -1,20 +1,29 @@
 <h1 class="text-center custom-care-font"><span class="custom-zone-font">ISSUE TRACKER</span></h1>
-
+    <% if (currentUser) {%>
+        <div class="panel-head"> Hello <%= currentUser.lastName + " " + currentUser.firstName %></div>
+    <% }%>
 <div id="menu">
 
     <ul class="nav nav-pills"  style="display: flex;justify-content: center">
-        <li class="link"><a href="/users">Users</a></li>
+        <% if (currentUser.user_type == "admin") {%>
+            <li class="link"><a href="/users">Users</a></li>
+            <li class="link"><a id="link-dept" href="/departments">Departments</a></li>
+        <% }%>
+
         <li role="presentation" class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                 Issues <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="#">All Issues</a></li>
+                <li><a href="/issue">All Issues</a></li>
                 <li><a href="#">My Issues</a></li>
                 <li><a href="#">Assigned Issues</a></li>
+                <% if (currentUser.user_type == "dept_admin") {%>
+                    <li><a href="#">Department Issues</a></li>
+                <% }%>
             </ul>
         </li>
-        <li class="link"><a id="link-dept" href="/departments">Departments</a></li>
+        <li class="link"><a href="/issue/create">Create Issue</a></li>
         <li class="link"><a href="/logout">Logout</a></li>
 
     </ul>

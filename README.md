@@ -4,7 +4,9 @@ Andela Bootcamp Project to build a simple issue tracker application
 ## Introduction
 *  **`Issue-Tracker`** is a JavaScript application.
 *  It has the following features;
-  *  Login via email and Twitter.
+  *  Login via email.
+  *  Super admin assigns user to department.
+  *  Super admin assigns admin to department.
   *  Users raise issue based on issue description, priority etc.
   *  When an issue is raised, an admin user based on the department gets notified and assigns the issue.
   *  The admin marks the issue as resolved or in-progress.
@@ -36,7 +38,7 @@ Andela Bootcamp Project to build a simple issue tracker application
     >`https://github.com/EmmaTope/bc-18-issue-tracker-project.git`
 
 *  Navigate to the repo's folder on your computer
-  *  `cd bc-18-issue-tracker/`
+  *  `cd bc-18-issue-tracker-project/`
 *  Install the app's backend dependencies.
   *  `npm install`
       You also need to have **node** and **git** installed on your system.

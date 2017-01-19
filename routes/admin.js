@@ -5,14 +5,15 @@ var firebase = require("firebase");
 var isAuthenticated = require('../middleware/isAuthenticated');
 var isAdmin = require('../middleware/isAdmin');
 
-
-router.get('/denied', function (req, res) {
-    res.render('accounts/denied');
+router.get('/denied',isAuthenticated, function (req, res,next) {
+    res.render('accounts/denied',{
+        currentUser: req.session.user
+    });
 });
 
 /* GET home page. */
 router.get('/users',isAdmin, function (req, res, next) {
-// router.get('/users', function (req, res) {
+    var currentUser = req.session.user;
     var database = firebase.database();
     var viewUsers = database.ref("users");
     var users = [];
@@ -23,14 +24,18 @@ router.get('/users',isAdmin, function (req, res, next) {
             users.push(childData);
         });
         console.log(users.length);
-        res.render('pages/users', {users: users});
+        res.render('pages/users', {
+            users: users,
+            currentUser: currentUser
+        });
 
     }, function (error) {
         console.log(error);
     });
 });
 
-router.get('/departments', function (req, res, next) {
+router.get('/departments',isAdmin, function (req, res, next) {
+    var currentUser = req.session.user;
     var database = firebase.database();
     var viewDepartments = database.ref("/departments");
     var departments = [];
@@ -46,8 +51,10 @@ router.get('/departments', function (req, res, next) {
             childData["key"] = childKey;
             departments.push(childData);
         });
-
-        res.render('pages/departments', {depts: departments});
+        res.render('pages/departments', {
+            depts: departments,
+            currentUser: currentUser
+        });
         // res.json({depts: departments});
         },
         function (error) {
@@ -60,10 +67,8 @@ router.post('/assign-dept', function (req, res) {
     var id = req.body.user_id;
     var dept = req.body.dept;
     // res.json({key:id,dept:dept});
-    if(dept == "null"){
-        deptName = "";
-    }
-    else if(dept == "1"){
+
+    if(dept == "1"){
         deptName = "Operations";
     }
     else if(dept == "2"){
@@ -80,6 +85,9 @@ router.post('/assign-dept', function (req, res) {
     }
     else if(dept == "6"){
         deptName = "Marketing";
+    }
+    else{
+        deptName = "null";
     }
 
     var database = firebase.database();
@@ -104,7 +112,8 @@ router.post('/assign-dept', function (req, res) {
 
 });
 
-router.get('/assign-department-admin/:id/:dept', function (req, res) {
+router.get('/assign-department-admin/:id/:dept', isAdmin,function (req, res,next) {
+    var currentUser = req.session.user;
     var deptId = req.params.id;
     var deptName = req.params.dept;
     var database = firebase.database();
@@ -123,11 +132,11 @@ router.get('/assign-department-admin/:id/:dept', function (req, res) {
                 }
 
             });
-
             res.render('pages/assign-admin', {
                 id: deptId,
                 dept: deptName,
                 users: deptUsers,
+                currentUser:currentUser,
                 success: req.flash('success')
             });
         },
@@ -149,7 +158,8 @@ router.post('/assign-dept-admin', function (req, res) {
     var database = firebase.database();
     var user = database.ref("/users/"+ userId);
     var result = user.update({
-        admin: deptId
+        admin: deptId,
+        user_type: "dept_admin"
     });
 
     var department = database.ref("/departments/"+ deptId);
@@ -164,7 +174,6 @@ router.post('/assign-dept-admin', function (req, res) {
     res.redirect(url);
 
 });
-
 
 module.exports = router;
 

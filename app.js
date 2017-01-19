@@ -8,6 +8,7 @@ var ejs = require('ejs');
 var engine = require('ejs-mate');
 var session = require('express-session');
 var flash = require('express-flash');
+var MongoStore = require('connect-mongo')(session);
 var firebase = require("firebase");
 
 var config = {
@@ -51,13 +52,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 // }));
 app.use(session({
   secret: secret.secretKey,
-  cookie: { secure: false }
+  store: new MongoStore({url : secret.url}),
+  resave: true,
+  saveUninitialized: false
 }));
 app.use(flash());
 
 app.use(adminRoutes);
 app.use(authRoutes);
-// app.use(issueRoutes);
+app.use('/issue',issueRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

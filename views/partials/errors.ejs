@@ -1,0 +1,12 @@
+<% if(typeof messages.errors !="undefined" && messages.errors.length){%>
+<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismmiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <ul>
+        <% messages.errors.forEach(function (error) {%>
+        <li class="text-white"><%- error %></li>
+        <%}); %>
+    </ul>
+</div>
+<%}%>

@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/EmmaTope/bc-18-issue-tracker-project#readme",
   "dependencies": {
+    "async": "^2.1.4",
     "body-parser": "~1.15.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
@@ -33,6 +34,7 @@
     "express-flash": "0.0.2",
     "express-session": "^1.14.2",
     "firebase": "^3.6.5",
+    "moment": "^2.17.1",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0",
     "validatorjs": "^3.11.0"

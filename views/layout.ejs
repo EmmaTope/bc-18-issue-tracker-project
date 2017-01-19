@@ -1,23 +1,21 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title><%- typeof title !="undefined" ? title : "Issue Tracker"  %></title>
+<head>
+    <title><%- typeof title != "undefined" ? title : "Issue Tracker" %></title>
     <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/custom.css">
-  </head>
+    <%- block('style').toString() %>
+</head>
 
-  <body>
+<body>
+    <section>
+        <%- body -%>
+    </section>
 
-    <% include ../partials/navbar %>
-
-
-      <!-- Example row of columns -->
-      <%- body -%>
-
-      <!-- /container -->
-      <% include ./partials/footer %>
-      <% include ./partials/javascriptOnly %>
-  </body>
+    <!-- /container -->
+    <% include ./partials/footer %>
+    <% include ./partials/javascriptOnly %>
+    <%- block('body').toString() %>
+</body>
 </html>

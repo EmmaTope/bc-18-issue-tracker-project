@@ -6,12 +6,25 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 var engine = require('ejs-mate');
+var session = require('express-session');
+var flash = require('express-flash');
+var firebase = require("firebase");
+
+var config = {
+  apiKey: "AIzaSyDhCTLR7c4RdE3JKWEDHQ02gDY3T1vBwWo",
+  authDomain: "issuetracker-ab67b.firebaseapp.com",
+  databaseURL: "https://issuetracker-ab67b.firebaseio.com",
+  storageBucket: "issuetracker-ab67b.appspot.com",
+  messagingSenderId: "326728674993"
+};
+firebase.initializeApp(config);
+
 
 var http = require('http');
 var secret = require('./config/secret');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+var authRoutes = require('./routes/auth');
+var indexRoutes = require('./routes/index');
 
 var app = express();
 
@@ -29,8 +42,20 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+// app.use(session({
+//   resave: true,
+//   saveUninitialized: true,
+//   secret: secret.secretKey,
+//   cookie: { maxAge: 60000 }
+// }));
+app.use(session({
+  secret: secret.secretKey,
+  cookie: { secure: false }
+}));
+app.use(flash());
+
+app.use(indexRoutes);
+app.use(authRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -65,6 +65,60 @@ router.get('/department',isAuthenticated, function (req, res,next) {
 
 });
 
+router.get('/issue-created',isAuthenticated, function (req, res,next) {
+    var currentUser = req.session.user;
+    var database = firebase.database();
+    var viewIssues = database.ref("/issues");
+    var myIssues = [];
+    viewIssues.on('value',function(snapshot) {
+
+            snapshot.forEach(function(childSnapshot) {
+                var childKey = childSnapshot.key;
+                var childData = childSnapshot.val();
+                if(childData.createdByKey == currentUser.key){
+                    childData["key"] = childKey;
+                    myIssues.push(childData);
+                }
+
+            });
+            res.render('issues/index', {
+                issues: myIssues,
+                currentUser: currentUser
+            });
+        },
+        function (error) {
+            console.log(error);
+        });
+
+});
+
+router.get('/assigned-issue',isAuthenticated, function (req, res,next) {
+    var currentUser = req.session.user;
+    var database = firebase.database();
+    var viewIssues = database.ref("/issues");
+    var assignedIssues = [];
+    viewIssues.on('value',function(snapshot) {
+
+            snapshot.forEach(function(childSnapshot) {
+                var childKey = childSnapshot.key;
+                var childData = childSnapshot.val();
+                if(childData.assignedUserId == currentUser.key){
+                    childData["key"] = childKey;
+                    assignedIssues.push(childData);
+                }
+
+            });
+            res.render('issues/index', {
+                issues: assignedIssues,
+                currentUser: currentUser
+            });
+        },
+        function (error) {
+            console.log(error);
+        });
+
+});
+
 router.get('/create',isAuthenticated, function (req, res) {
     var currentUser = req.session.user;
     console.log(currentUser.firstName);
@@ -96,7 +150,7 @@ router.post('/',isAuthenticated, function (req, res,next) {
         var database = firebase.database();
         var user = database.ref("/issues/");
         var result = user.push({
-            issueName: req.body.issue_name,
+            issueTitle: req.body.issue_name,
             issueDescription: req.body.issue_description,
             issuePriority: req.body.issue_priority,
             issueDeptId: deptId,
@@ -110,8 +164,8 @@ router.post('/',isAuthenticated, function (req, res,next) {
             closedOn: ""
         });
         if(result){
-            req.flash('success', "Created Successfully");
-            return res.redirect('/issue/create');
+            // req.flash('success', "Created Successfully");
+            return res.redirect('/issue');
         }
         req.flash('errors', "Failed to create issue");
         return res.redirect('/issue/create');

@@ -16,8 +16,8 @@
             </a>
             <ul class="dropdown-menu">
                 <li><a href="/issue">All Issues</a></li>
-                <li><a href="#">Issues created</a></li>
-                <li><a href="#">Assigned Issues</a></li>
+                <li><a href="/issue/issue-created">Issues created</a></li>
+                <li><a href="/issue/assigned-issue">Assigned Issues</a></li>
                 <% if (currentUser.user_type == "dept_admin") {%>
                     <li><a href="/issue/department">Department Issues</a></li>
                 <% }%>

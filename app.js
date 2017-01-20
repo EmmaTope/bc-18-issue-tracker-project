@@ -81,7 +81,7 @@ app.use(function(err, req, res, next) {
 });
 
 var server = http.createServer(app);
-server.listen(secret.port, function () {
+server.listen(process.env.PORT || secret.port, function () {
   console.log('app listening on port ',secret.port);
 });
 

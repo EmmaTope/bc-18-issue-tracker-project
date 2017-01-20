@@ -1,11 +1,11 @@
-<% layout('layoutAuth') -%>
+<% layout('layout') -%>
 <div class="container">
     <div class="row">
         <div class="col-sm-8 col-sm-offset-2">
 
             <div class="col-sm-10 col-sm-offset-1 mt-60">
                 <h1 class="text-center custom-care-font"><span class="custom-zone-font">ISSUE TRACKER</span></h1>
-                <h5 class="text-center">Have an account already? <a href="/users/login" class="text-info">Login</a></h5>
+                <h5 class="text-center">Have an account already? <a href="/login" class="text-info">Login</a></h5>
 
             </div>
 
@@ -15,21 +15,26 @@
 
                     <form method="post">
                         <div class="panel-body">
+                            <% include ../partials/flash %>
                             <div class="form-group">
                                 <label for="lastName">Last Name: </label>
-                                <input type="text" class="form-control" name="lastName">
+                                <input type="text" class="form-control" name="lastName" required>
                             </div>
                             <div class="form-group">
                                 <label for="firstName">First Name: </label>
-                                <input type="text" class="form-control" name="firstName">
+                                <input type="text" class="form-control" name="firstName" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email: </label>
-                                <input type="email" class="form-control" name="email">
+                                <input type="text" class="form-control" name="email" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password: </label>
-                                <input type="password" class="form-control" name="password">
+                                <input type="password" class="form-control" name="password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confPassword">Confirm Password: </label>
+                                <input type="password" class="form-control" name="confPassword" required>
                             </div>
                         </div>
                         <div class="panel-footer m-0">

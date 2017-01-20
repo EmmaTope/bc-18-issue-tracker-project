@@ -10,6 +10,58 @@ body {
 #navbar-gap {
   margin-top: 4%;
 }
+.tr-link:hover {
+  cursor: pointer;
+}
+.issue-title{
+  font-size: 16px;
+  color: #000;
+}
+.panel-head{
+  font-size: 16px;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-weight: bold;
+}
+
+#menu {
+  font-size: 16px;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+/*#menu {*/
+  /*font-size: 16px;*/
+  /*font-family: Tahoma, Geneva, sans-serif;*/
+  /*font-weight: bold;*/
+  /*text-align: center;*/
+  /*margin-top: 15px;*/
+/*}*/
+/*#menu > ul {*/
+  /*height: auto;*/
+  /*padding: 8px 0px;*/
+  /*margin: 0px;*/
+/*}*/
+/*#menu li {*/
+  /*display: inline;*/
+  /*padding: 20px;*/
+/*}*/
+/*#menu li {*/
+  /*display: inline;*/
+  /*padding: 20px;*/
+/*}*/
+
+/*#menu a {*/
+  /*text-decoration: none;*/
+  /*color: #000;*/
+  /*padding: 8px 8px 8px 8px;*/
+/*}*/
+/*#menu a:active,#menu a:hover, #menu .active {*/
+  /*color: #546799;*/
+/*}*/
+
+/*jdj*/
 .footer{
   margin-top: 20px;
   text-align: center;
@@ -46,6 +98,22 @@ body {
   flex: 1;
 }
 
+/** Google login**/
+.btn-googleplus {
+  background: #E93F2E;
+  border-radius: 0;
+  color: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #b72213;
+}
+.btn-googleplus:link, .btn-googleplus:visited {
+  color: #fff;
+}
+.btn-googleplus:active, .btn-googleplus:hover {
+  background: #b72213;
+  color: #fff;
+}
 /*
 Margins/Paddings*/
 .m-auto {
@@ -310,6 +378,4 @@ Margins/Paddings*/
 .b-t {
   border-top: 1px solid rgba(0, 0, 0, 0.05) !important;
 }
-
-
 

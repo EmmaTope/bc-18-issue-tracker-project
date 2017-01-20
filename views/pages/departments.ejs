@@ -1,0 +1,61 @@
+<% layout('layout') -%>
+
+<% block('style').append('<link type="text/css" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">') %>
+<div class="container">
+    <div class="row">
+        <% include ../partials/header %>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading panel-head">Departments</div>
+            <div class="panel-body">
+                <!-- Table -->
+
+                <% if (depts.length > 0) {%>
+                <table class="table table-striped table-bordered" id="depts_table" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Department Head</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% depts.forEach(function(dept) { %>
+                        <tr>
+                            <td id="dept-name-<%= dept.key %>"><%= dept.name%></td>
+                            <td><%= dept.admin %></td>
+                            <td>
+                                <span class="edit">
+                                    <a class="assign_admin" href="/assign-department-admin/<%= dept.key %>/<%= dept.name %>" rel="<%= dept.key %>">
+                                        <% if (dept.admin == "NO ADMIN") {%>
+                                        Assign Admin
+                                        <% } else {%>
+                                        Change Admin
+                                        <% } %>
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+                <% } else {%>
+                    <table class="table" width="100%" >
+                        <tr>
+                            <td>
+                                <div class="panel-head">No Department</div>
+                            </td>
+                        </tr>
+                    </table>
+                <% } %>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<% block('body').append("<script src='https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js'></script>") %>
+<% block('body').append("<script src='https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js'></script>") %>
+<% block('body').append("<script src='/js/users.js'></script>") %>
+<% block('body').append("<script>jQuery(document).ready(function() {$('#depts_table').DataTable();setTabActive('[href=\"/departments\"]');}) </script>") %>
+

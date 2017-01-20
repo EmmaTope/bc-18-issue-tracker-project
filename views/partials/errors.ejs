@@ -1,0 +1,14 @@
+<% if(typeof messages !="undefined" && messages.length){%>
+<div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismmiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    Errors in your inputs
+    <ul>
+        <% messages.forEach(function (error) {%>
+        <!--<li class="text-white"><%- /*error */%></li>-->
+        <li ><%- error %></li>
+        <%}); %>
+    </ul>
+</div>
+<%}%>

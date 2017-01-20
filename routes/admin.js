@@ -45,7 +45,7 @@ router.get('/departments',isAdmin, function (req, res, next) {
             var childKey = childSnapshot.key;
             var childData = childSnapshot.val();
             // console.log(childKey);
-            
+
             childData["key"] = childKey;
             departments.push(childData);
         });

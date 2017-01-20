@@ -23,11 +23,16 @@
                         <% depts.forEach(function(dept) { %>
                         <tr>
                             <td id="dept-name-<%= dept.key %>"><%= dept.name%></td>
-                            <td><%= dept.admin %></td>
+                            <td><% if (dept.adminId == null) {%>
+                                NO ADMIN
+                                <% } else { %>
+                                <%=  dept.userName %>
+                                <% } %>
+                            </td>
                             <td>
                                 <span class="edit">
                                     <a class="assign_admin" href="/assign-department-admin/<%= dept.key %>/<%= dept.name %>" rel="<%= dept.key %>">
-                                        <% if (dept.admin == "NO ADMIN") {%>
+                                        <% if (dept.adminId == null) {%>
                                         Assign Admin
                                         <% } else {%>
                                         Change Admin

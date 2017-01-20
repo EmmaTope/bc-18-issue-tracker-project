@@ -45,9 +45,7 @@ router.get('/departments',isAdmin, function (req, res, next) {
             var childKey = childSnapshot.key;
             var childData = childSnapshot.val();
             // console.log(childKey);
-            if(childData.admin == null){
-                childData["admin"] = "NO ADMIN";
-            }
+            
             childData["key"] = childKey;
             departments.push(childData);
         });

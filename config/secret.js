@@ -1,5 +1,5 @@
 module.exports = {
-  port: 3000,
+  port: 5000,
   secretKey: "Shaibu@$@!#@",
   url: "mongodb://mytoddlr:mytoddlr@ds143707.mlab.com:43707/mytoddlr"
 };

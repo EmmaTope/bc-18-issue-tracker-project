@@ -80,9 +80,12 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+var server_port = process.env.PORT || secret.port;
+// var server_host = process.env.YOUR_HOST || '0.0.0.0';
+
 var server = http.createServer(app);
-server.listen(process.env.PORT || secret.port, function () {
-  console.log('app listening on port ',secret.port);
+server.listen(server_port, function () {
+  console.log('app listening on port ',server_port);
 });
 
 module.exports = app;

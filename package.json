@@ -4,7 +4,7 @@
   "description": "Issue Tracker Project",
   "private": true,
   "engines": {
-    "node": "5.9.1"
+    "node": "4.6.0"
   },
   "scripts": {
     "start": "node app.js"

@@ -110,7 +110,7 @@ router.post('/assign-dept', function (req, res) {
 
 });
 
-router.get('/assign-department-admin/:id/:dept', isAdmin,function (req, res,next) {
+router.get('/assign-department-admin/:id/:dept', isAdmin,function (req, res) {
     var currentUser = req.session.user;
     var deptId = req.params.id;
     var deptName = req.params.dept;
@@ -148,28 +148,62 @@ router.post('/assign-dept-admin', function (req, res) {
     var user = req.body.user;
     var deptId = req.body.dept_id;
     var deptName = req.body.dept_name;
-    var url = '/assign-department-admin/'+deptId+'/'+deptName+'';
+    // var url = '/assign-department-admin/'+deptId+'/'+deptName+'';
     var arr = user.split("--");
     var userName = arr[1];
     var userId = arr[0];
 
     var database = firebase.database();
+
+    // var viewUsers = database.ref("users");
+    // var users = [];
+    // viewUsers.on('value', function (snapshot) {
+    //     var allUsers = snapshot.val();
+    //     snapshot.forEach(function(childSnapshot) {
+    //         var childData = childSnapshot.val();
+    //
+    //         if(childData.admin = deptId){
+    //             var childKey = childSnapshot.key;
+    //             var userCh = database.ref("/users/"+ childKey);
+    //             userCh.update({
+    //                 admin: '',
+    //                 user_type: "member"
+    //             });
+    //         }
+    //         // users.push(childData);
+    //     });
+    //     var userDb = database.ref("/users/"+ userId);
+    //     userDb.update({
+    //         admin: deptId,
+    //         user_type: "dept_admin"
+    //     });
+    //
+    //     var department = database.ref("/departments/"+ deptId);
+    //     department.update({
+    //         adminId: userId,
+    //         userName: userName
+    //     });
+    //     res.redirect('/departments');
+    //
+    // }, function (error) {
+    //     console.log(error);
+    // });
     var userDb = database.ref("/users/"+ userId);
-    var result = userDb.update({
+    userDb.update({
         admin: deptId,
         user_type: "dept_admin"
     });
 
     var department = database.ref("/departments/"+ deptId);
-    var resultDept = department.update({
+    department.update({
         adminId: userId,
         userName: userName
     });
-    if(result && resultDept){
-        req.flash('success', "Admin sucessfully assigned");
-        res.redirect(url);
-    }
-    res.redirect(url);
+    // if(result && resultDept){
+    //     req.flash('success', "Admin sucessfully assigned");
+    //     res.redirect(url);
+    // }
+    res.redirect('/departments');
 
 });
 

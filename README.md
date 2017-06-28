@@ -39,7 +39,8 @@ Andela Bootcamp Project to build a simple issue tracker application
 
 *  Navigate to the repo's folder on your computer
   *  `cd bc-18-issue-tracker-project/`
-*  Install the app's backend dependencies.
+*  Create a .env file and copy the contents of the .env.sample file to it.
+*  Fill in the appropriate values gotten from firebase for the keys in the .env file
   *  `npm install`
       You also need to have **node** and **git** installed on your system.
 

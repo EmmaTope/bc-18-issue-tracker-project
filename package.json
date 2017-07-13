@@ -4,7 +4,7 @@
   "description": "Issue Tracker Project",
   "private": true,
   "engines": {
-    "node": "4.6.0"
+    "node": "4.8.4"
   },
   "main": "app.js",
   "scripts": {

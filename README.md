@@ -1,5 +1,5 @@
-##Issue Tracker
-Andela Bootcamp Project to build a simple issue tracker application
+## Issue Tracker
+Demo Project building a simple issue tracker application
 
 ## Introduction
 *  **`Issue-Tracker`** is a JavaScript application.

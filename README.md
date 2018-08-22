@@ -45,4 +45,4 @@ Demo Project building a simple issue tracker application
       You also need to have **node** and **git** installed on your system.
 
 * Run the app
-  *  `node app.js` 
+  *  `npm start` 

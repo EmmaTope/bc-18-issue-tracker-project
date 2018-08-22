@@ -155,39 +155,6 @@ router.post('/assign-dept-admin', function (req, res) {
 
     var database = firebase.database();
 
-    // var viewUsers = database.ref("users");
-    // var users = [];
-    // viewUsers.on('value', function (snapshot) {
-    //     var allUsers = snapshot.val();
-    //     snapshot.forEach(function(childSnapshot) {
-    //         var childData = childSnapshot.val();
-    //
-    //         if(childData.admin = deptId){
-    //             var childKey = childSnapshot.key;
-    //             var userCh = database.ref("/users/"+ childKey);
-    //             userCh.update({
-    //                 admin: '',
-    //                 user_type: "member"
-    //             });
-    //         }
-    //         // users.push(childData);
-    //     });
-    //     var userDb = database.ref("/users/"+ userId);
-    //     userDb.update({
-    //         admin: deptId,
-    //         user_type: "dept_admin"
-    //     });
-    //
-    //     var department = database.ref("/departments/"+ deptId);
-    //     department.update({
-    //         adminId: userId,
-    //         userName: userName
-    //     });
-    //     res.redirect('/departments');
-    //
-    // }, function (error) {
-    //     console.log(error);
-    // });
     var userDb = database.ref("/users/"+ userId);
     userDb.update({
         admin: deptId,
@@ -208,37 +175,3 @@ router.post('/assign-dept-admin', function (req, res) {
 });
 
 module.exports = router;
-
-// router.get('/users', function (req, res, next) {
-//     var database = firebase.database();
-//     var viewUsers = database.ref("users");
-//     var users = [];
-//     viewUsers.on('value', function (snapshot) {
-//         var allUsers = snapshot.val();
-//         async.forEach(allUsers,function(user, userCallback){
-//
-//             firebase.database().ref('/departments' + user.department).on('value', function (snap) {
-//                 if (snap.val() != null) {
-//                     user['departmentName'] = snap.val().name;
-//                 }
-//                 else {
-//                     user['departmentName'] = "NULL";
-//                 }
-//                 // console.log(user);
-//                 users.push(user);
-//                 userCallback();
-//
-//             });
-//
-//         }, function(err){
-//             if (err) {
-//                 console.log(err);
-//             }
-//             console.log(users.length);
-//             res.render('pages/users', {users: users});
-//         });
-//
-//     }, function (error) {
-//         console.log(error);
-//     });
-// });

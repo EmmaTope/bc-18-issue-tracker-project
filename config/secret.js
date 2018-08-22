@@ -1,7 +1,8 @@
+require('dotenv').config();
+
 module.exports = {
-  port: 5000,
-  secretKey: "Shaibu@$@!#@",
-  url: "mongodb://root:abc123@ds117889.mlab.com:17889/emmatope"
+  secretKey: process.env.SECRET_KEY,
+  url: process.env.SECRET_DB_URL
 };
 
 // "rules": {

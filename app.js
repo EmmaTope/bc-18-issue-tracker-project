@@ -32,7 +32,6 @@ var issueRoutes = require('./routes/issues');
 
 var app = express();
 
-// app.set('port', process.env.PORT || 3000);
 // view engine setup
 app.engine('ejs', engine);
 app.set('views', path.join(__dirname, 'views'));
@@ -46,12 +45,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use(session({
-//   resave: true,
-//   saveUninitialized: true,
-//   secret: secret.secretKey,
-//   cookie: { maxAge: 60000 }
-// }));
 app.use(session({
   secret: secret.secretKey,
   store: new MongoStore({url : secret.url}),
@@ -82,8 +75,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-var server_port = process.env.PORT || secret.port;
-// var server_host = process.env.YOUR_HOST || '0.0.0.0';
+var server_port = process.env.PORT || 7000;
 
 var server = http.createServer(app);
 server.listen(server_port, function () {

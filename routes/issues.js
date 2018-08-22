@@ -272,38 +272,3 @@ router.post('/change-status', function (req, res) {
 });
 
 module.exports = router;
-
-
-// router.get('/users', function (req, res, next) {
-//     var database = firebase.database();
-//     var viewUsers = database.ref("users");
-//     var users = [];
-//     viewUsers.on('value', function (snapshot) {
-//         var allUsers = snapshot.val();
-//         async.forEach(allUsers,function(user, userCallback){
-//
-//             firebase.database().ref('/departments' + user.department).on('value', function (snap) {
-//                 if (snap.val() != null) {
-//                     user['departmentName'] = snap.val().name;
-//                 }
-//                 else {
-//                     user['departmentName'] = "NULL";
-//                 }
-//                 // console.log(user);
-//                 users.push(user);
-//                 userCallback();
-//
-//             });
-//
-//         }, function(err){
-//             if (err) {
-//                 console.log(err);
-//             }
-//             console.log(users.length);
-//             res.render('pages/users', {users: users});
-//         });
-//
-//     }, function (error) {
-//         console.log(error);
-//     });
-// });
